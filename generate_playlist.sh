@@ -5,16 +5,16 @@ echo -n "" > $fout;
 exec >> $fout;
 for dir in *; do
         if [[ -d "$dir" ]]; then
+		dir_escaped=${dir// /%20};
                 printf "<playlist name=\"%s\" show-browser=\"true\" browser-position=\"180\" search-type=\"search-match\" type=\"automatic\" sort-key=\"Artist\" sort-direction=\"0\">\n" "$dir";
                 echo "<conjunction>";
                 printf "<equals prop=\"type\">song</equals>\n";
                 echo "<subquery>";
                 echo "<conjunction>";
-                printf "<like prop=\"location\">%s</like>\n" "$dir";
+                printf "<like prop=\"location\">%s</like>\n" "$dir_escaped";
                 echo "</conjunction>";
                 echo "</subquery>";
                 echo "</conjunction>";
                 echo "</playlist>";
                 fi
 done
-
